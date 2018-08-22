@@ -1,12 +1,15 @@
 import Express from "express"
-import drone from "ar-drone"
+import Drone from "./drone"
 import { PORT } from "./constants"
 import { log } from "./debug"
 
 const server = Express()
+const drone = Drone()
 
 server.get("/", (req, res) => {
-	res.send("hello world")
+	res.send("Engaging drone...")
+	drone.takeoff()
+	setTimeout(() => drone.land(), 3000)
 })
 
 server.listen(PORT, function(...args) {
