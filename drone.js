@@ -14,6 +14,7 @@ class Drone {
 
 	async close() {
 		await this.stop()
+		await this.land()
 		await this.delay(800)
 
 		const drone = this._drone
