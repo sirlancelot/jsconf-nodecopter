@@ -1,0 +1,2 @@
+# jsconf-nodecopter
+Hackathon
