@@ -45,6 +45,10 @@ class Drone {
 		return new Promise((resolve) => setTimeout(resolve, duration))
 	}
 
+	on(...args) {
+		return this._drone.on(...args)
+	}
+
 	async animate(animation, duration) { return this.command('animate', false, [animation, duration]) }
 	async animateLeds(animation, hz, duration) { return this.command('animateLeds', false, [animation, hz, duration]) }
 	async back(speed) { return this.command('back', false, [speed]) }

@@ -1,4 +1,5 @@
 import { log } from "./debug"
+import throttle from "mout/function/throttle"
 import Express from "express"
 import http from "http"
 import Drone from "./drone"
@@ -17,8 +18,13 @@ app.use((req, res, next) => void (shutdown || next()))
 app.get("/", async (req, res) => {
 	res.send("Engaging drone...")
 	await drone.takeoff()
-	await drone.after(3000)
+	await drone.delay(10000)
 	await drone.land()
+})
+
+app.get("/battery", async (req, res) => {
+	const battery = await drone.battery()
+	res.send(`Battery: ${battery}`)
 })
 
 // =============================================================================
@@ -36,3 +42,8 @@ process.on("SIGINT", async () => {
 	log(`Byeeee`)
 	process.exit()
 })
+
+// =============================================================================
+// Listen for navdata from the drone
+drone.on("lowBattery", throttle((val) => log(`Low Battery: ${val}%`), 10000))
+drone.on("error", (err) => log(err))
