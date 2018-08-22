@@ -52,7 +52,7 @@ class Drone {
 	async animate(animation, duration) { return this.command('animate', false, [animation, duration]) }
 	async animateLeds(animation, hz, duration) { return this.command('animateLeds', false, [animation, hz, duration]) }
 	async back(speed) { return this.command('back', false, [speed]) }
-	async battery() { return this.command('battery') }
+	async battery() { return this._drone.battery() }
 	async calibrate(deviceNum) { return this.command('calibrate', false, [deviceNum]) }
 	async clockwise(speed) { return this.command('clockwise', false, [speed]) }
 	async config(key, value) { return this.command('config', true, [key, value]) }
@@ -65,11 +65,11 @@ class Drone {
 	async ftrim() { return this.command('ftrim') }
 	async getPngStream() { return this.command('getPngStream') }
 	async getVideoStream() { return this.command('getVideoStream') }
-	async land() { return this.command('land') }
+	async land() { return this.command('land', true) }
 	async left(speed) { return this.command('left', false, [speed]) }
 	async resume() { return this.command('resume') }
 	async right(speed) { return this.command('right', false, [speed]) }
 	async stop() { return this.command('stop') }
-	async takeoff() { return this.command('takeoff') }
+	async takeoff() { return this.command('takeoff', true) }
 	async up(speed) { return this.command('up', false, [speed]) }
 }
